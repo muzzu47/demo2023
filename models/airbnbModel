@@ -1,0 +1,32 @@
+const mongoose = require("mongoose");
+const AirBnbSchema = require("./../Schema/airbnb.js")
+
+const AirBnb = new mongoose.model("sample_airbnb",AirBnbSchema);
+
+// AirBnb.findOne({name:"Ribeira Charming Duplex"},function(err,doc){
+//     if(err) console.log("Err in calling",err);
+//     else console("DB info AllahuAkbar",doc);
+// })
+let url = "mongodb+srv://muzzuwdi:TY1QSXiiGexPCF1H@ipcluster.7xwdrat.mongodb.net/sample_airbnb";
+
+// mongoose.connect(url).then(()=>{
+//     console.log("Connection to DB successfull...");
+// }).catch((err)=> {
+//     console.log("error while connecting to db..",err);
+// });
+
+let dbResult = (async() => {
+    try{
+        mongoose.connect(url).then(()=>{
+            console.log("Connection to DB successfull...");
+        }).catch((err)=> {
+            console.log("error while connecting to db..",err);
+        });
+        let result =  await AirBnb.findOne({name:"Ribeira Charming Duplex"});
+        console.log("Does this comes",result);
+    } catch(e){
+        console.log("error getting db details",e.message);
+    }
+})
+
+console.log("What is the result", dbResult());
